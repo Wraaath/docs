@@ -3,7 +3,7 @@ Stolen from [TechnoTim's docs](https://github.com/techno-tim/techno-tim.github.i
 You need a Linux machine with Docker & docker-compose and a domain with Cloudflare DNS servers configured.
 
 * [Folders&Files](#folders&files)
-* [docker-compose.yml](#docker-compose.yml)
+* [docker-compose.yml](#docker-composeyml)
 * [traefik.yml](#traefik.yml)
 * [config.yml](#config.yml)
 
@@ -20,7 +20,7 @@ Remember to set permissions for `acme.json`
 chmod 600 acme.json
 ```
 
-## docker-compose.yml
+## docker-composeyml
 Some stuff needs to be changed. Specifically the stuff like `<your_name>`. \
 
 You need to this to the email you used on your Cloudflare account.
