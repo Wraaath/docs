@@ -20,7 +20,7 @@ Remember to set permissions for `acme.json`
 chmod 600 acme.json
 ```
 
-**ALSO ALSO VERY ALSO**
+**ALSO ALSO VERY ALSO** \
 Make sure you don't redeploy this container too too much. Let's Encrypt will tempban your IP for 3 hours if you keep asking for certificates. This happend to me :)))
 
 ## docker-compose
