@@ -1,2 +1,2 @@
-# docs
-Documentation for my projects
+# Hey stranger
+If you wanna follow, just read everything.
