@@ -1,14 +1,19 @@
 # Traefik reverse-proxy configuration in docker-compose with Cloudflare and Let's Encrypt
-Taken primarily from [TechnoTim's docs](https://github.com/techno-tim/techno-tim.github.io/tree/master/reference_files/traefik-portainer-ssl/traefik) \
+Stolen from [TechnoTim's docs](https://github.com/techno-tim/techno-tim.github.io/tree/master/reference_files/traefik-portainer-ssl/traefik) \
 You need a Linux machine with Docker & docker-compose and a domain with Cloudflare DNS servers configured.
 
-## Folders 'n files
+* [Folders&Files](#folders&files)
+* [docker-compose.yml](#docker-compose.yml)
+* [traefik.yml](#traefik.yml)
+* [config.yml](#config.yml)
+
+## Folders&Files
 ./traefik \
 ├── docker-compose.yml \
 └── data \
-    ├── acme.json \
-    ├── config.yml \
-    └── traefik.yml
+‎..........├── acme.json \
+‎..........├── config.yml \
+....‎......└── traefik.yml
 
 Remember to set permissions for `acme.json`
 ```bash
@@ -16,6 +21,43 @@ chmod 600 acme.json
 ```
 
 ## docker-compose.yml
-Some stuff needs to be changed. Specifically the stuff like `<your_name>`.
-`- CF_API_EMAIL=<cloudflare_email>` to the email you used on your Cloudflare account.
-`- CF_DNS_API_TOKEN=` to an API-token from Cloudflare. The API-token [needs specific permissions](api-token.png).
+Some stuff needs to be changed. Specifically the stuff like `<your_name>`. \
+
+You need to this to the email you used on your Cloudflare account.
+```yml
+- CF_API_EMAIL=<cloudflare_email>
+```
+
+You need to this to an API-token from Cloudflare. The API-token needs [specific permissions](api-token.png).
+```yml
+- CF_DNS_API_TOKEN=<cloudflare_api_token>
+```
+
+Change the domain to the actual domain you own on Cloudflare. Otherwise no valid certificates can be aquired. \
+Important to mention that you don't need to put `traefik.local.` in front of your domain, though you need something. Could be just `traefik.your_domain.tld`.
+```yml
+- "traefik.http.routers.traefik.rule=Host(`<traefik.local.your_domain.tld>`)"
+```
+
+Here you need to get a username for the dashboard. But it aint that simple. You first have to install `apache2-utils` and use the command `echo $(htpasswd -nb "<user>" "<password>") | sed -e s/\\$/\\$\\$/g`. The output is what you wanna paste instead of `<user:pass>`.
+```yml
+- "traefik.http.middlewares.traefik-auth.basicauth.users=<user:pass>"
+```
+
+Same story as above except this is gonna be the main certificate Traefik is gonna get for your services.
+```yml
+- "traefik.http.routers.traefik-secure.tls.domains[0].main=<local.your_domain.tld>
+```
+
+And a subjectname alternative for Traefik. This is gonna be the certificates for most of your services. Like for `whateverservice.local.your_domain.tld` and all other services where you are gonna put the name in front of `.local`. The `*.` indicates it could be `anything.local.your_domain.tld`.
+```yml
+- "traefik.http.routers.traefik-secure.tls.domains[0].sans=<*.local.your_domain.tld>
+```
+
+## traefik.yml
+Really all you need to replace is this. With same email you used earlier.
+```yml
+email: <cloudflare_email>
+```
+
+## config.yml
