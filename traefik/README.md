@@ -2,12 +2,12 @@
 Stolen from [TechnoTim's docs](https://github.com/techno-tim/techno-tim.github.io/tree/master/reference_files/traefik-portainer-ssl/traefik) \
 You need a Linux machine with Docker & docker-compose and a domain with Cloudflare DNS servers configured.
 
-* [Folders&Files](#folders&files)
-* [docker-compose.yml](#docker-composeyml)
-* [traefik.yml](#traefik.yml)
-* [config.yml](#config.yml)
+* [Getting-started](#getting-started)
+* [docker-compose.yml](#docker-compose)
+* [traefik.yml](#traefik)
+* [config.yml](#config)
 
-## Folders&Files
+## Getting-started
 ./traefik \
 ├── docker-compose.yml \
 └── data \
@@ -20,7 +20,7 @@ Remember to set permissions for `acme.json`
 chmod 600 acme.json
 ```
 
-## docker-composeyml
+## docker-compose
 Some stuff needs to be changed. Specifically the stuff like `<your_name>`. \
 
 You need to this to the email you used on your Cloudflare account.
@@ -54,10 +54,10 @@ And a subjectname alternative for Traefik. This is gonna be the certificates for
 - "traefik.http.routers.traefik-secure.tls.domains[0].sans=<*.local.your_domain.tld>
 ```
 
-## traefik.yml
+## traefik
 Really all you need to replace is this. With same email you used earlier.
 ```yml
 email: <cloudflare_email>
 ```
 
-## config.yml
+## config
