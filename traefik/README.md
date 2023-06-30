@@ -47,6 +47,11 @@ Here you need to get a username for the dashboard. But it aint that simple. You 
 - "traefik.http.middlewares.traefik-auth.basicauth.users=<user:pass>"
 ```
 
+Same story as the one before password. This is just for `https` and not `http`.
+```yml
+- "traefik.http.routers.traefik-secure.rule=Host(`<traefik.local.your_domain.tld>`)"
+```
+
 Same story as above except this is gonna be the main certificate Traefik is gonna get for your services.
 ```yml
 - "traefik.http.routers.traefik-secure.tls.domains[0].main=<local.your_domain.tld>
