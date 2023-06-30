@@ -1,6 +1,5 @@
 # Traefik reverse-proxy configuration in docker-compose with Cloudflare and Let's Encrypt
 Stolen from [TechnoTim's docs](https://github.com/techno-tim/techno-tim.github.io/tree/master/reference_files/traefik-portainer-ssl/traefik) \
-You need a Linux machine with Docker & docker-compose and a domain with Cloudflare DNS servers configured.
 
 * [Getting-started](#getting-started)
 * [docker-compose.yml](#docker-compose)
@@ -14,6 +13,9 @@ You need a Linux machine with Docker & docker-compose and a domain with Cloudfla
 ‎..........├── acme.json \
 ‎..........├── config.yml \
 ....‎......└── traefik.yml
+
+You need a Linux machine with Docker & docker-compose and a domain with Cloudflare DNS servers configured. \
+You also need a way to configure local DNS resolving. You should probably use Pihole for this.
 
 Remember to set permissions for `acme.json`
 ```bash
@@ -69,3 +71,5 @@ email: <cloudflare_email>
 ```
 
 ## config
+This is where you put everything for routing. Basically configurations for all services (except Traefik itself) that are not on the same machine as Traefik. \
+These configurations are different for every service, so you should look [here](https://github.com/techno-tim/techno-tim.github.io/blob/master/reference_files/traefik-portainer-ssl/traefik/config.yml) for some templates for gettings started.
